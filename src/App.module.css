@@ -21,12 +21,8 @@
   font-size: 12px;
 }
 
-.back {
+.heading {
   color: var(--title-color);
-}
-
-.charter {
-  white-space: pre-wrap;
 }
 
 @media (max-width: $mantine-breakpoint-xs) {
