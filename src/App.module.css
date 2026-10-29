@@ -10,7 +10,7 @@
   text-align: center;
   font-size: clamp(36px, 7vw, 56px);
   line-height: 1.15;
-  color: var(--title-color);
+  color: #000;
 }
 
 .center {
@@ -22,7 +22,22 @@
 }
 
 .heading {
-  color: var(--title-color);
+  color: #000;
+}
+
+.logo {
+  height: clamp(80px, 16vw, 128px);
+  width: auto;
+}
+
+.seal {
+  width: 160px;
+  max-width: 50%;
+  height: auto;
+}
+
+.page a:not([class*='Button']) {
+  color: var(--email-color);
 }
 
 @media (max-width: $mantine-breakpoint-xs) {

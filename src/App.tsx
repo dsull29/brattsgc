@@ -1,15 +1,39 @@
 import { Anchor, Button, Container, Group, Stack, Text, Title } from '@mantine/core'
 import { useEffect, useState, type ReactNode } from 'react'
 import classes from './App.module.css'
-import { PAGE_BACKGROUND, TITLE_COLOR } from './theme'
+import { EMAIL_COLOR, PAGE_BACKGROUND } from './theme'
 
 const STOAT_URL = 'https://stt.gg/VRXfXVcE'
 const NEWSLETTER_URL = 'https://decjsul.substack.com'
+const BASE = import.meta.env.BASE_URL
 
 const CONTACTS = [
-  { label: 'General Concerns', email: 'info@brattsgc.org' },
-  { label: 'Board Chair Declan Sullivan', email: 'declans@brattsgc.org' },
-  { label: 'Head Publisher Oscar Vulte', email: 'oscarv@brattsgc.org' },
+  {
+    role: 'Board Chair',
+    name: 'Declan Sullivan',
+    email: 'declans@brattsgc.org',
+    about: 'Schedules and plans meetings, runs broader community outreach, and holds collective votes.',
+  },
+  {
+    role: 'Head of Communications',
+    name: 'Alex Brown',
+    email: 'alexb@brattsgc.org',
+    about:
+      'Manages communications between students, with the school administration, and resolves personal conflicts.',
+  },
+  {
+    role: 'Board Vice Chair',
+    name: 'Ajax Kolodziej',
+    email: 'ajaxk@brattsgc.org',
+    about:
+      'Aids Chair and panel heads in scheduling, hosting meetings, student outreach, and other miscellaneous tasks.',
+  },
+  {
+    role: 'Head Publisher',
+    name: 'Oscar Vulte',
+    email: 'oscarv@brattsgc.org',
+    about: 'Runs and writes the newsletter and a majority of announcements, with some exceptions.',
+  },
 ]
 
 type CharterSection = {
@@ -125,7 +149,7 @@ const CHARTER: CharterSection[] = [
 
 const pageVars = {
   '--page-background': PAGE_BACKGROUND,
-  '--title-color': TITLE_COLOR,
+  '--email-color': EMAIL_COLOR,
 } as React.CSSProperties
 
 function useHash() {
@@ -143,11 +167,19 @@ function useHash() {
 
 function SiteTitle() {
   return (
-    <Title order={1} className={classes.title}>
-      Brattleboro Student
-      <br />
-      General Collective
-    </Title>
+    <Group justify="center" wrap="nowrap" gap="md">
+      <img
+        src={`${BASE}logo.svg`}
+        alt="BSGC logo"
+        className={classes.logo}
+        onError={(e) => (e.currentTarget.style.display = 'none')}
+      />
+      <Title order={1} className={classes.title}>
+        Brattleboro Student
+        <br />
+        General Collective
+      </Title>
+    </Group>
   )
 }
 
@@ -182,7 +214,7 @@ function Home() {
         </Stack>
 
         <Stack gap="xs" align="center">
-          <Text size="lg">Read our charter:</Text>
+          <Text size="lg">Anyone can review our charter:</Text>
           <Button component="a" href="#/charter" size="md">
             Charter
           </Button>
@@ -192,18 +224,29 @@ function Home() {
           <Text>Questions or concerns? Please feel free to reach out.</Text>
           <Text className={classes.small}>
             Please reach out to <Anchor href="mailto:info@brattsgc.org">info@brattsgc.org</Anchor>{' '}
-            if you don’t have a specific person in mind, or don’t know which specific person is best
-            for your needs.
+            if you don’t have a specific person or role in mind, or don’t know which specific person is
+            best to contact for your needs.
           </Text>
         </Stack>
 
-        <Stack gap={2} align="center">
-          {CONTACTS.map(({ label, email }) => (
-            <Text key={email}>
-              {label} - <Anchor href={`mailto:${email}`}>{email}</Anchor>
-            </Text>
+        <Stack gap="md" align="center">
+          <Text fw={700}>Member Contact List:</Text>
+          {CONTACTS.map(({ role, name, email, about }) => (
+            <div key={email}>
+              <Text>
+                {role} {name} - <Anchor href={`mailto:${email}`}>{email}</Anchor>
+              </Text>
+              <Text className={classes.small}>{about}</Text>
+            </div>
           ))}
         </Stack>
+
+        <img
+          src={`${BASE}seal.svg`}
+          alt="BSGC seal"
+          className={classes.seal}
+          onError={(e) => (e.currentTarget.style.display = 'none')}
+        />
       </Stack>
     </Stack>
   )
