@@ -13,6 +13,20 @@
   color: #000;
 }
 
+.narrow {
+  width: 100%;
+  max-width: 640px;
+  margin-inline: auto;
+}
+
+.card {
+  padding: 20px 16px;
+  border: 1px solid rgba(90, 37, 108, 0.15);
+  border-radius: 12px;
+  background-color: rgba(255, 255, 255, 0.45);
+  box-shadow: 0 1px 3px rgba(90, 37, 108, 0.08);
+}
+
 .center {
   text-align: center;
 }

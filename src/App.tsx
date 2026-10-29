@@ -1,4 +1,4 @@
-import { Anchor, Button, Container, Group, Stack, Text, Title } from '@mantine/core'
+import { Anchor, Button, Container, Group, SimpleGrid, Stack, Text, Title } from '@mantine/core'
 import { useEffect, useState, type ReactNode } from 'react'
 import classes from './App.module.css'
 import { EMAIL_COLOR, PAGE_BACKGROUND } from './theme'
@@ -6,6 +6,24 @@ import { EMAIL_COLOR, PAGE_BACKGROUND } from './theme'
 const STOAT_URL = 'https://stt.gg/VRXfXVcE'
 const NEWSLETTER_URL = 'https://decjsul.substack.com'
 const BASE = import.meta.env.BASE_URL
+
+const ACTIONS = [
+  {
+    title: 'Join',
+    text: 'Students can join us today using our forum on Stoat.',
+    href: STOAT_URL,
+  },
+  {
+    title: 'Newsletter',
+    text: 'Anyone can get our newsletter through Substack.',
+    href: NEWSLETTER_URL,
+  },
+  {
+    title: 'Charter',
+    text: 'Anyone can review our charter.',
+    href: '#/charter',
+  },
+]
 
 const CONTACTS = [
   {
@@ -188,7 +206,7 @@ function Home() {
     <Stack gap="xl">
       <SiteTitle />
 
-      <div>
+      <div className={classes.narrow}>
         <Text fw={700}>What is the BSGC?</Text>
         <Text>
           We are a group of Brattleboro students with the goal of student voice and transparency in
@@ -198,63 +216,62 @@ function Home() {
         </Text>
       </div>
 
-      <Stack gap="xl" align="center" className={classes.center}>
-        <Stack gap="xs" align="center">
-          <Text size="lg">Students can join us today using our forum on Stoat:</Text>
-          <Button component="a" href={STOAT_URL} size="md">
-            Join
-          </Button>
-        </Stack>
+      <SimpleGrid cols={{ base: 1, sm: 3 }} spacing="md">
+        {ACTIONS.map(({ title, text, href }) => (
+          <Stack key={title} gap="md" justify="space-between" align="center" className={classes.card}>
+            <Stack gap={4} align="center">
+              <Title order={3} className={classes.heading}>
+                {title}
+              </Title>
+              <Text size="sm">{text}</Text>
+            </Stack>
+            <Button component="a" href={href} size="md">
+              {title}
+            </Button>
+          </Stack>
+        ))}
+      </SimpleGrid>
 
-        <Stack gap="xs" align="center">
-          <Text size="lg">Anyone can get our newsletter through Substack:</Text>
-          <Button component="a" href={NEWSLETTER_URL} size="md">
-            Newsletter
-          </Button>
-        </Stack>
-
-        <Stack gap="xs" align="center">
-          <Text size="lg">Anyone can review our charter:</Text>
-          <Button component="a" href="#/charter" size="md">
-            Charter
-          </Button>
-        </Stack>
-
+      <Stack gap="xl" align="center" className={`${classes.center} ${classes.narrow}`}>
         <Stack gap={4} align="center">
-          <Text>Questions or concerns? Please feel free to reach out.</Text>
+          <Text fw={700}>Questions or concerns? Please feel free to reach out.</Text>
           <Text className={classes.small}>
             Please reach out to <Anchor href="mailto:info@brattsgc.org">info@brattsgc.org</Anchor>{' '}
             if you don’t have a specific person or role in mind, or don’t know which specific person is
             best to contact for your needs.
           </Text>
         </Stack>
+      </Stack>
 
-        <Stack gap="md" align="center">
-          <Text fw={700}>Member Contact List:</Text>
+      <Stack gap="md" align="center" className={classes.center}>
+        <Text fw={700}>Member Contact List:</Text>
+        <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="md" w="100%">
           {CONTACTS.map(({ role, name, email, about }) => (
-            <div key={email}>
-              <Text>
-                {role} {name} - <Anchor href={`mailto:${email}`}>{email}</Anchor>
-              </Text>
+            <Stack key={email} gap={4} align="center" className={classes.card}>
+              <Text fw={700}>{role}</Text>
+              <Text>{name}</Text>
+              <Anchor href={`mailto:${email}`}>{email}</Anchor>
               <Text className={classes.small}>{about}</Text>
-            </div>
+            </Stack>
           ))}
-        </Stack>
+        </SimpleGrid>
+      </Stack>
 
+      <Group justify="center">
         <img
           src={`${BASE}seal.svg`}
           alt="BSGC seal"
           className={classes.seal}
           onError={(e) => (e.currentTarget.style.display = 'none')}
         />
-      </Stack>
+      </Group>
     </Stack>
   )
 }
 
 function Charter() {
   return (
-    <Stack gap="xl">
+    <Stack gap="xl" className={classes.narrow}>
       <SiteTitle />
       <Title order={2} ta="center" className={classes.heading}>
         Charter
@@ -287,7 +304,7 @@ function App() {
   const hash = useHash()
   return (
     <main className={classes.page} style={pageVars}>
-      <Container size="sm">{hash === '#/charter' ? <Charter /> : <Home />}</Container>
+      <Container size="md">{hash === '#/charter' ? <Charter /> : <Home />}</Container>
     </main>
   )
 }
