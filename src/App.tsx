@@ -47,7 +47,7 @@ const CONTACTS = [
       'Aids Chair and panel heads in scheduling, hosting meetings, student outreach, and other miscellaneous tasks.',
   },
   {
-    role: 'Head Publisher',
+    role: 'Head of Publications',
     name: 'Oscar Vulte',
     email: 'oscarv@brattsgc.org',
     about: 'Runs and writes the newsletter and a majority of announcements, with some exceptions.',
